@@ -1,6 +1,6 @@
 # QBB2022 - Day 1 - Homework Exercises Submission
 
-#Exercise 1
+##Exercise 1
 b. You get an error message about an illegal field because of the nuc variable.
 Corrected script:
 for nuc in A C G T
@@ -29,7 +29,7 @@ Considering  T
  
 d. It makes sense because the A and G as well as C and T switch more often because A and G are purines and C and T are pyrimidines.
 
-#Exercise 2
+##Exercise 2
 Find all state1 and print rows to a separate bed file
 awk '{if ($4 == 1) {print}}' ~/data/bed_files/chromHMM.E116_15_coreMarks_hg38lift_stateno.chr21.bed> st1.bed
 
@@ -41,7 +41,7 @@ awk '{if ($4 == "C") {print $5}}' intersect.vcf | sort | uniq -c
 
 The most common alternate allele for a cytosine reference is thymine.  It makes because both cytosine and thymine are pyrimadines.
 
-#Exercise 3
+##Exercise 3
 awk '/^#/{next} {print $1,$2-1, $2}' $1 > variants.bed #skip the comment lines make a bed file
 sort -k1,1 -k2,2n ~/data/bed_files/genes.bed > genes.sorted.bed #sort the bed file by position
 bedtools closest -a variants.bed -b genes.sorted.bed #find the variants closest to the bed file
@@ -71,3 +71,6 @@ Count the number of genes: 200
 sort -k7 closest.bed |  uniq -f5 -c | wc -l
 
 There are 51.5 variants per gene.
+
+##Exercise 4
+
