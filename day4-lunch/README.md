@@ -1,4 +1,4 @@
-# QBB2022 - Day 4 Lunch Exercises!)
+# QBB2022 - Day 4 Lunch Exercises
 ##Exercise 1
 ###1
 *** Creating .bed files for features of interest
@@ -14,6 +14,7 @@
     + Covering 13780687 bp
 ###2
 One strategy is to look at the plots in the cache and compare them to the ones that we created.  Another strategy is to code it to see if the two are equal. 
+numpy array to compare rbg value for each pixel
 ###3
 miRNA is interesting because they are involved in regulating gene expression.
 lncRNA are also involved in gene regulation.
