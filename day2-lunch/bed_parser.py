@@ -64,9 +64,9 @@ def parse_bed(fname):
 if __name__ == "__main__":
     fname = sys.argv[1]
     bed = parse_bed(fname)
-    # for z in range(2):
-    #     # print entry i
-    #     print(bed[z])
+    for z in range(2):
+        # print entry i
+        print(bed[z])
         
 # Need to add annotations
 # Add malformed count
