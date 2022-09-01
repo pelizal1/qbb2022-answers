@@ -3,6 +3,7 @@
 # key: category
 # value: list >> 2 lists [0]=PC1, [1]=PC2
 # plot categories as different series
+# could use numpy.colors to have different colors
 
 import matplotlib.pyplot as plt
 import numpy as np
@@ -12,27 +13,7 @@ integ__plink_joined = np.genfromtxt("integ_call_plink_joined.txt",
                         dtype = None,
                         encoding = None,
                         names = ["ID", "pop", "superpop", "sex", "ID", "first_pc", "second_pc", "third_pc"])
-
-# # plot population
-# fig, ax = plt.subplots()
-# for i, line in enumerate(integ__plink_joined):
-#     for
-# ax.scatter(plink["first_pc"], plink["second_pc"])
-# ax.set_xlabel("first_pc")
-# ax.set_ylabel("second_pc")
-# ax.legend()
-# plt.savefig("ex3_a.png")
-# plt.close(fig)
-#
-# # plot superpopulation
-# fi, a = plt.subplots()
-# a.scatter(plink["first_pc"], plink["second_pc"])
-# a.set_xlabel("first_pc")
-# a.set_ylabel("third_pc")
-# plt.savefig("ex3_b.png")
-# a.legend()
-# plt.close(fi)
-
+                        
 # plot sex
 f, z = plt.subplots()
 sex = {}
