@@ -106,8 +106,8 @@ ax = sns.heatmap(power_mat,
                 cmap="Blues",
                 xticklabels=tosses,
                 yticklabels=probs)
-ax.set_xlabel("probs")
-ax.set_ylabel("tosses")
+ax.set_xlabel("Number of tosses")
+ax.set_ylabel("Probability of heads")
 plt.title("Heatmap of coin toss power - corrected")
 plt.savefig("heatmap_corrected.png")
 plt.close(fig)
