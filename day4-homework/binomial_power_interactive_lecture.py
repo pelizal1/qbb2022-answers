@@ -96,13 +96,13 @@ probs = numpy.around(numpy.arange(0.55, 1.05, 0.05), decimals=2)[::-1]
 power_mat = numpy.zeros((len(probs), len(tosses)))
 for i, p in enumerate(probs):
     for j, n in enumerate(tosses):
-        power_mat[i,j] = run_experiment(p,n, correct_the_pvalues = True)    
+        power_mat[i,j] = run_experiment(p,n, correct_the_pvalues = True)
 
 # plot the heatmap of power values
 fig, ax = plt.subplots()
-ax = sns.heatmap(power_mat, 
-                vmin=0, 
-                vmax=1, 
+ax = sns.heatmap(power_mat,
+                vmin=0,
+                vmax=1,
                 cmap="Blues",
                 xticklabels=tosses,
                 yticklabels=probs)
