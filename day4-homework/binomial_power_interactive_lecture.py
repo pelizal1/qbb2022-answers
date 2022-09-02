@@ -96,7 +96,9 @@ probs = numpy.around(numpy.arange(0.55, 1.05, 0.05), decimals=2)[::-1]
 power_mat = numpy.zeros((len(probs), len(tosses)))
 for i, p in enumerate(probs):
     for j, n in enumerate(tosses):
-        power_mat[i,j] = run_experiment(p,n, correct_the_pvalues = True)
+        power_mat[i,j] = run_experiment(p,n, correct_the_pvalues=True)
+
+print(power_mat)
 
 # plot the heatmap of power values
 fig, ax = plt.subplots()
@@ -106,8 +108,8 @@ ax = sns.heatmap(power_mat,
                 cmap="Blues",
                 xticklabels=tosses,
                 yticklabels=probs)
-ax.set_xlabel("probs")
-ax.set_ylabel("tosses")
+ax.set_xlabel("Number of tosses")
+ax.set_ylabel("Probability of heads")
 plt.title("Heatmap of coin toss power - corrected")
 plt.savefig("heatmap_corrected.png")
 plt.close(fig)
