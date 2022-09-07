@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+# USAGE: ./bed_parser.py <FILE.bed>
 
 import sys
 
@@ -23,7 +24,7 @@ def parse_bed(fname):
         fieldN = len(fields)
         # There have to be at least 3 fields. bed10 and 11 are not appropriate file types
         if fieldN < 3 or fieldN == 10 or fieldN == 11:
-            print(f"Line {i} appears malformed. There are {fieldsN} fields in this line.", file=sys.stderr)
+            # print(f"Line {i} appears malformed. There are {fieldsN} fields in this line.", file=sys.stderr)
             malformed += 1
             continue
  
@@ -38,22 +39,18 @@ def parse_bed(fname):
                     fields[j] = field_types[j](fields[j])
             # IF blockCount and blockSizes are not equal
             if fields[9] != len(fields[10]):
-                print(f"blockSizes doesn't equal blockCount in line {i}", file=sys.stderr)
-                print(fields)
+                # print(f"blockSizes doesn't equal blockCount in line {i}", file=sys.stderr)
                 malformed += 1
             # IF blockCount and blockStarts are not equal
             elif fields[9] != len(fields[11]):
-                print(f"blockStarts doesn't equal blockCount in line {i}", file=sys.stderr)
-                print(fields)
+                # print(f"blockStarts doesn't equal blockCount in line {i}", file=sys.stderr)
                 malformed += 1
             elif j == 8 and len(fields[j]) != 3:
-                print("itemRGB doesn't have the correct number of entries", file=sys.stderr) 
-                print(fields) 
+                # print(f"itemRGB doesn't have the correct number of entries in line {i}", file=sys.stderr)  
                 malformed += 1
             bed.append(fields)
         except:
-            print(f"Line {i} appears malformed", file=sys.stderr)
-            print(fields)
+            # print(f"Line {i} appears malformed", file=sys.stderr)
             malformed += 1
     #print out if there are malformed lines
     if malformed > 0:
