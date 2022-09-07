@@ -1,0 +1,3 @@
+# Feedback day3-homework
+
+All of this looks great. I especially appreciate that you paid attention to whether the legend covered the data in ex3_a. Everything looks correct and your code is well written. The only piece of feedback I have is that you don't actually need the dictionary for holding the data before plotting. You could simply pass `pc1_list` and `pc2list` as the X and Y arguments in the scatter function. Since you redeclare them with each iteration, there is no contamination from the previous iteration. Overall, you're doing a great job. Keep it up!
