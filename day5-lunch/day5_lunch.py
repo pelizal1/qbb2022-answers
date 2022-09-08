@@ -10,28 +10,36 @@ fs = np.genfromtxt("joined_parent.tsv", dtype = None,
                     encoding = None,
                     names = ["Proband_id", "Father_age", "Mother_age", "Paternal_count", "father", "Maternal_count", "mother"])
 
-# plot the parent age and number of mutations
-# fig, ax = plt.subplots()
-# ax.scatter(fs["Maternal_count"], fs["Mother_age"])
-# ax.set_xlabel("Number of maternally inherited mutations")
-# ax.set_ylabel("Maternal Age")
-# plt.title("Maternal Age and Inherited Mutations")
-# plt.savefig("ex2_a.png")
+# plot the maternal age and number of mutations
+fig, ax = plt.subplots()
+ax.scatter(fs["Mother_age"], fs["Maternal_count"])
+ax.set_xlabel("Maternal Age")
+ax.set_ylabel("Number of maternally inherited mutations")
+plt.title("Maternal Age and Inherited Mutations")
+plt.savefig("ex2_a.png")
 
-# # OLS for association between maternal age and mutations
-# mat_model = smf.ols(formula = "Maternal_count ~ 1 + Mother_age", data = fs).fit()
-# print(mat_model.summary())
-#
-# # # OLS for association between paternal age and mutations
-# pat_model = smf.ols(formula = "Paternal_count ~ 1 + Father_age", data = fs).fit()
-# print(pat_model.summary())
+# plot the maternal age and number of mutations
+fi, a = plt.subplots()
+a.scatter(fs["Father_age"], fs["Paternal_count"])
+a.set_xlabel("Number of paternally inherited mutations")
+a.set_ylabel("Paternal Age")
+plt.title("Paternal Age and Inherited Mutations")
+plt.savefig("ex2_b.png")
+
+# OLS for association between maternal age and mutations
+mat_model = smf.ols(formula = "Mother_age ~ 1 + Maternal_count", data = fs).fit()
+print(mat_model.summary())
+
+# OLS for association between paternal age and mutations
+pat_model = smf.ols(formula = "Father_age ~ 1 + Paternal_count", data = fs).fit()
+print(pat_model.summary())
 
 # # histogram of maternal vs paternal mutation counts
-fig, ax = plt.subplots()
-ax.hist(fs["Maternal_count"], alpha =  0.5, label = "Maternally-inherited mutations")
-ax.hist(fs["Paternal_count"], alpha =  0.5, label = "Paternally-inherited mutations")
-ax.set_xlabel("Number of mutations")
-ax.set_ylabel("Frequency")
+f, z = plt.subplots()
+z.hist(fs["Maternal_count"], alpha =  0.5, label = "Maternally-inherited mutations")
+z.hist(fs["Paternal_count"], alpha =  0.5, label = "Paternally-inherited mutations")
+z.set_xlabel("Number of mutations")
+z.set_ylabel("Frequency")
 plt.legend()
 plt.title("Frequency of Paternal and Maternal Mutations")
 plt.savefig("ex2_c.png")
