@@ -93,6 +93,28 @@ tosses = numpy.array([10, 50, 100, 250, 500, 1000])
 probs = numpy.around(numpy.arange(0.55, 1.05, 0.05), decimals=2)[::-1]
 
 # create the matrix of power values
+power_mat_uncorr = numpy.zeros((len(probs), len(tosses)))
+for i, p in enumerate(probs):
+    for j, n in enumerate(tosses):
+        power_mat_uncorr[i,j] = run_experiment(p,n)
+
+print(power_mat_uncorr)
+
+# plot the not corrected heatmap of power values
+fig, ax = plt.subplots()
+ax = sns.heatmap(power_mat_uncorr,
+                vmin=0,
+                vmax=1,
+                cmap="Blues",
+                xticklabels=tosses,
+                yticklabels=probs)
+ax.set_xlabel("Number of tosses")
+ax.set_ylabel("Probability of heads")
+plt.title("Heatmap of coin toss power - not corrected")
+plt.savefig("heatmap_not_corrected.png")
+plt.close(fig)
+
+# create the matrix of power values
 power_mat = numpy.zeros((len(probs), len(tosses)))
 for i, p in enumerate(probs):
     for j, n in enumerate(tosses):
@@ -100,7 +122,7 @@ for i, p in enumerate(probs):
 
 print(power_mat)
 
-# plot the heatmap of power values
+# plot the corrected heatmap of power values
 fig, ax = plt.subplots()
 ax = sns.heatmap(power_mat,
                 vmin=0,
