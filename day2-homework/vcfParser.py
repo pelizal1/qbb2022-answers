@@ -97,12 +97,10 @@ def parse_vcf(fname):
         vcf[0][8] = format_description
     if malformed > 0: # printing if there were any malformed lines
         print(f"There were {malformed} malformed entries", file=sys.stderr)
-    for i in range(10): # print out the first 10 columns
-        print(vcf[i])
     return vcf
 
 if __name__ == "__main__": # IF the code block is being run on the terminal
     fname = sys.argv[1] # get name of file
     vcf = parse_vcf(fname) # reading in and interpreting vcf file
-    for i in range(10): # print out the first 10 columns
-        print(vcf[i])
+    # for i in range(10): # print out the first 10 columns
+    #     print(vcf[i])
