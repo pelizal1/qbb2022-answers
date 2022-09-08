@@ -20,3 +20,11 @@ our experiment and correlating with transmission rate and number of sperm in the
 probability of heads seems to correspond to the transmission rate axis while the number of
 tosses corresponds to the number of sperm. Both simulations use a binomial test because there
 are only two conditions: (1) heads or tails or (2) allele1 or allele2.
+
+##Response to feedback
+I made a new file (day4-homework) where function is called once rather than repeatedly. As we
+spoke about with Jack and through Slack, the results are different from if you call the 
+function repeatedly and set the random seed every time.
+
+To be more specific about the correlation, the power increases with increasing probability of heads 
+and increasing the number of coin tosses.  
