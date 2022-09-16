@@ -47,6 +47,12 @@ There are 5 insertions in the reference and one in the query sequence.
 
 ##Question 4
 ###4.1
-show-coords out.mdelta
+show-diff out.delta
+The position of the insertion is 88511 to 88531.
+###4.2
+The novel insertion is 21 bp long.
+###4.3
+
+
 
 
