@@ -43,16 +43,19 @@ show-coords out.delta
 
 The longest alignment is 105830 bp.
 ###3.3
-There are 5 insertions in the reference and one in the query sequence.
+There are 5 insertions in the reference and one in the query sequence. The
+insertion in the query sequence is 709 bp.
 
 ##Question 4
 ###4.1
 show-diff out.delta
-The position of the insertion is 88511 to 88531.
+The position of the insertion is 26788-27497 in the assembly.  In the reference,
+the insertion starts at 26790.
 ###4.2
-The novel insertion is 21 bp long.
+The novel insertion is 709 bp long.
 ###4.3
-
+samtools faidx asm/contigs.fasta NODE_3_length_41351_cov_20.528098:26788-27497 > message.fasta
+The decoded message :  Congratulations to the 2022 CMDB @ JHU class!  Keep on looking for little green aliens..
 
 
 
