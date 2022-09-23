@@ -35,11 +35,11 @@ traceback_matrix = np.empty((len_1, len_2), dtype=str)
 # fill in the first col
 for i in range(len(sequence1)+1):
     F_matrix[i,0] = i*gap_penalty
-    traceback_matrix[i,0] = "v"
+    traceback_matrix[i,0] = "e"
 # fill in the first row
 for j in range(len(sequence2)+1):
     F_matrix[0,j] = j*gap_penalty
-    traceback_matrix[0,j] = "h"
+    traceback_matrix[0,j] = "e"
 
 
 # searching the scoring matrix - make a dictionary with letters as keys
@@ -77,22 +77,25 @@ seq2_align = ""
 
 i = len(sequence1)
 j = len(sequence2)
+
 traceback_matrix[0,0] = "e"
-while traceback_matrix != "e":
+
+while traceback_matrix[i,j] != "e":
     if traceback_matrix[i,j] == "d":
-        seq1_align = 
-        seq2_align = 
+        seq1_align += sequence1[i-1]
+        seq2_align += sequence2[j-1]
         i -= 1
         j -= 1
     elif traceback_matrix[i,j] == "h":
-        seq1_align = "-"
-        seq2_align = 
+        seq1_align += "-"
+        seq2_align += sequence2[j-1]
         i -= 1
     elif traceback_matrix[i,j] == "v": 
-        seq1_align = 
-        seq2_align = "-"
+        seq1_align += sequence1[i-1]
+        seq2_align += "-"
         j -= 1
 
-
+print(f"Sequence 1 alignment: {seq1_align}")
+print(f"Sequence 2 alignment: {seq2_align}")
 
 
