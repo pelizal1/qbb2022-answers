@@ -35,11 +35,11 @@ traceback_matrix = np.empty((len_1, len_2), dtype=str)
 # fill in the first col
 for i in range(len(sequence1)+1):
     F_matrix[i,0] = i*gap_penalty
-    traceback_matrix[i,0] = "e"
+    traceback_matrix[i,0] = "v"
 # fill in the first row
 for j in range(len(sequence2)+1):
     F_matrix[0,j] = j*gap_penalty
-    traceback_matrix[0,j] = "e"
+    traceback_matrix[0,j] = "h"
 
 
 # searching the scoring matrix - make a dictionary with letters as keys
@@ -79,23 +79,34 @@ i = len(sequence1)
 j = len(sequence2)
 
 traceback_matrix[0,0] = "e"
+score = 0
+gap_seq1 = 0
+gap_seq2 = 0
 
 while traceback_matrix[i,j] != "e":
     if traceback_matrix[i,j] == "d":
         seq1_align += sequence1[i-1]
         seq2_align += sequence2[j-1]
+        score += F_matrix[i,j]
         i -= 1
         j -= 1
     elif traceback_matrix[i,j] == "h":
         seq1_align += "-"
         seq2_align += sequence2[j-1]
-        i -= 1
+        score += F_matrix[i,j]
+        gap_seq1 += 1
+        j -= 1
     elif traceback_matrix[i,j] == "v": 
         seq1_align += sequence1[i-1]
         seq2_align += "-"
-        j -= 1
+        score += F_matrix[i,j]
+        gap_seq2 += 1
+        i -= 1
 
-print(f"Sequence 1 alignment: {seq1_align}")
-print(f"Sequence 2 alignment: {seq2_align}")
+print(f"Alignment score: {score}")
+print(f"No. of gaps in sequence 1: {gap_seq1}")
+print(f"No. of gaps in sequence 2: {gap_seq2}")
+print(f"Sequence 1 alignment: {seq1_align[::-1]}")
+print(f"Sequence 2 alignment: {seq2_align[::-1]}")
 
 
