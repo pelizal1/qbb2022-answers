@@ -1,0 +1,19 @@
+Key 	 Predicted Effect
+0 	 
+1 	 conservative_inframe_deletion
+2 	 conservative_inframe_insertion
+3 	 disruptive_inframe_deletion
+4 	 disruptive_inframe_insertion
+5 	 downstream_gene_variant
+6 	 frameshift_variant
+7 	 frameshift_variant&stop_lost&splice_region_variant
+8 	 initiator_codon_variant
+9 	 missense_variant
+10 	 missense_variant&splice_region_variant
+11 	 splice_region_variant&intron_variant
+12 	 splice_region_variant&stop_retained_variant
+13 	 splice_region_variant&synonymous_variant
+14 	 stop_gained
+15 	 stop_lost&splice_region_variant
+16 	 synonymous_variant
+17 	 upstream_gene_variant
