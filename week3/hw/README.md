@@ -33,5 +33,5 @@ I saved the keys for the Predicted Effect graph as a txt file because of formati
 grep "#" A01_filter_decomp_snpeff.vcf | wc -l
 65 header lines
 
-head -n 1065 > A01_1000.vcf
+head -n 1065 A01_filter_decomp_snpeff.vcf > A01_1000.vcf
 1065 to include header lines and 1000 snps
