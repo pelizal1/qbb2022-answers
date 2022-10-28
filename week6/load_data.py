@@ -33,11 +33,21 @@ def main():
                                        (frags['start'] <= end) &
                                        (frags['end'] > end))[0][0]] + 1
                                        
-
     d1 = data1[(data1['F1'] >= start_bin) &
                         (data1['F2'] <= end_bin)]
     d2 = data2[(data2['F1'] >= start_bin) &
+    
                         (data2['F2'] <= end_bin)]
+    # log transform data                 
+    d1['score'] = numpy.log(d1['score'])
+    d2['score'] = numpy.log(d2['score'])
+    
+    # subtract minimum value
+    d1_amin = numpy.amin(d1['score'])
+    d1['score'] = d1['score'] - d1_amin
+
+    d2_amin = numpy.amin(d2['score'])
+    d2['score'] = d2['score'] - d2_amin
 
 if __name__ == "__main__":
     main()
