@@ -5,6 +5,7 @@ import sys
 import numpy
 import matplotlib.pyplot as plt
 import matplotlib.colors as colors
+import seaborn as sns
 
 def main():
     # in1_fname should be ddCTCF from iced
@@ -36,11 +37,13 @@ def main():
     d1 = data1[(data1['F1'] >= start_bin) &
                         (data1['F2'] <= end_bin)]
     d2 = data2[(data2['F1'] >= start_bin) &
-    
                         (data2['F2'] <= end_bin)]
-    # log transform data                 
+                        
+    # log transform data               
     d1['score'] = numpy.log(d1['score'])
     d2['score'] = numpy.log(d2['score'])
+    
+
     
     # subtract minimum value
     d1_amin = numpy.amin(d1['score'])
@@ -48,6 +51,58 @@ def main():
 
     d2_amin = numpy.amin(d2['score'])
     d2['score'] = d2['score'] - d2_amin
+    
+    # convert sparse data into square matrix
+    length = end_bin - start_bin - 1
+    print(length)
+    d1_full = numpy.zeros((length, length))
+    d2_full = numpy.zeros((length, length))
+    
+    # loop through columns
+    for i in range(start_bin, end_bin):
+        # loop through rows
+        for j in range(start_bin, end_bin):
+            # indeces for score
+            index1 = numpy.where(
+                (d1['F1'] == i+1) &
+                (d1['F2'] == j+1)
+            )
+            index2 = numpy.where(
+                (d2['F1'] == i+1) &
+                (d2['F2'] == j+1)
+            )
+
+            try:
+                d1_full[i-start_bin][j-start_bin] = d1['score'][index1[0][0]]
+                d2_full[i-start_bin][j-start_bin] = d2['score'][index2[0][0]]
+            except:
+                continue
+    print(d1_full)
+    print(d2_full)
+    
+    fig, ax = plt.subplots()
+    ax = sns.heatmap(d1_full,
+                    cmap="magma")
+    plt.show()
+    
+    
+    # s = numpy.array([(1,2,3),(4,5,6),(7,8,9)], dtype=None)
+    # print(s)
+    # print(smooth_matrix(s))
+    # print(d1)
+    # print(smooth_matrix(d1))
+    
+def smooth_matrix(mat):
+    N = mat.shape[0]
+    print(N)
+    invalid = numpy.where(mat[1:-1, 1:-1] == 0)
+    nmat = numpy.zeros((N - 2, N - 2), float)
+    for i in range(3):
+        for j in range(3):
+            nmat += mat[i:(N - 2 + i), j:(N - 2 + j)]
+    nmat /= 9
+    nmat[invalid] = 0
+    return nmat
 
 if __name__ == "__main__":
     main()
