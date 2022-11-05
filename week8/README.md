@@ -46,4 +46,5 @@ samtools cat -o hap2.bam chr11_1900000-2800000/chr11_1900000-2800000_h2.phased.b
 
 samtools index hap2.bam
 
-===5
+===6
+It would depend on the size of th region.  Smaller regions in H1 or H2 might correspond to the same parent of origin.  Larger regions probably wouldn't especially regions that span chromosomes because reads would not be able to span different chromosomes.
