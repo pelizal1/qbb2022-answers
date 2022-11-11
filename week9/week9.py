@@ -5,7 +5,7 @@ import scipy
 from scipy.cluster.hierarchy import dendrogram, linkage
 import matplotlib.pyplot as plt
 import seaborn as sns
-
+import statsmodels.formula.api as smf
 
 
 input_arr = np.genfromtxt("dros_gene_expression.csv", delimiter=',', names=True, dtype=None, encoding='utf-8')
@@ -74,3 +74,22 @@ plt.title("Dendrogram")
 plt.tight_layout()
 plt.savefig("dendrogram.png")
 plt.close()
+
+# values for each gene, sex and time period
+sexes=[]
+stages=[]
+for sample in col_names[1:]:
+    sexes.append(sample.split('_')[0])
+    stages.append(sample.split('_')[1])
+
+p_vals = []
+for i in range(samp_plot.shape[0]):
+    list_of_tuples = []
+    for j in range(len(col_names[1:])):
+        list_of_tuples.append((transcript_names[i],samp_plot[i,j], sexes[j], stages[j]))
+    longdf = np.array(list_of_tuples, dtype=[('transcript', 'S11'), ('fpkm', float), ('sex', 'S6'), ('stage', int)])
+    model = smf.ols(formula="fpkm ~ 1 + stage", data=longdf, subset=None, drop_cols=None)
+    results = model.fit()
+    p_vals.append(results.pvalues)
+
+print(p_vals)
