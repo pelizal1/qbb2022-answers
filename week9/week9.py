@@ -6,6 +6,8 @@ from scipy.cluster.hierarchy import dendrogram, linkage
 import matplotlib.pyplot as plt
 import seaborn as sns
 import statsmodels.formula.api as smf
+import statsmodels.api as sm
+import pylab
 
 
 input_arr = np.genfromtxt("dros_gene_expression.csv", delimiter=',', names=True, dtype=None, encoding='utf-8')
@@ -90,6 +92,11 @@ for i in range(samp_plot.shape[0]):
     longdf = np.array(list_of_tuples, dtype=[('transcript', 'S11'), ('fpkm', float), ('sex', 'S6'), ('stage', int)])
     model = smf.ols(formula="fpkm ~ 1 + stage", data=longdf, subset=None, drop_cols=None)
     results = model.fit()
-    p_vals.append(results.pvalues)
+    p_vals.append([results.params[0],results.params[1]])
+qq_data = np.array(p_vals)
 
-print(p_vals)
+sm.qqplot(qq_data, line='q')
+plt.title("QQ Plot")
+plt.tight_layout()
+plt.savefig("qqplot.png")
+plt.close(fig)
