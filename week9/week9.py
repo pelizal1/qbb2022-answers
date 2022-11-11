@@ -11,7 +11,6 @@ import seaborn as sns
 input_arr = np.genfromtxt("dros_gene_expression.csv", delimiter=',', names=True, dtype=None, encoding='utf-8')
 col_names = list(input_arr.dtype.names)
 transcript_names = input_arr['t_name']
-print(col_names)
 fpkm_data = []
 
 for i, row in enumerate(input_arr):
@@ -40,35 +39,36 @@ for i, row in enumerate(subset_arr):
 
 subset_fpkm_count = len(subset_fpkm)
 subset_fpkm_arr = np.reshape(subset_fpkm, (subset_fpkm_count,10))
-print(subset_fpkm_arr.shape)
 
 # log transform data
 subset_fpkm_log = np.log2(subset_fpkm_arr + 0.1)
-print(subset_fpkm_log.dtype.names)
 
 # linkage and leaves list
-subset_tran = np.transpose(subset_fpkm_log)
-print(subset_tran.shape)
-linkage = scipy.cluster.hierarchy.linkage(subset_tran)
-linkage_tran = np.transpose(linkage)
-print(linkage_tran.shape)
-linkage_2 = scipy.cluster.hierarchy.linkage(linkage_tran)
-print(linkage_2.shape)
-leaves_list = scipy.cluster.hierarchy.leaves_list(linkage_2)
-print(leaves_list.shape)
+subset_tran = np.transpose(subset_fpkm_log) #samples
+subset_tran2 = np.transpose(subset_tran) #genes
+linkage = scipy.cluster.hierarchy.linkage(subset_tran) #samples
+linkage2 = scipy.cluster.hierarchy.linkage(subset_tran2) #genes
+leaves_list = scipy.cluster.hierarchy.leaves_list(linkage) #samples
+leaves_list2 = scipy.cluster.hierarchy.leaves_list(linkage2) #genes
 
-# heatmap
+gene_arr = subset_fpkm_log[leaves_list2]
+sample_arr = gene_arr.T[leaves_list]
+samp_plot = sample_arr.T
+
+# # heatmap
 fig, ax = plt.subplots()
-ax = sns.heatmap(linkage)
-# ax.set_xlabel("Number of tosses")
-# ax.set_ylabel("Probability of heads")
+ax = sns.heatmap(samp_plot)
+ax.set_xlabel("Samples")
+ax.set_ylabel("Genes")
 plt.title("Clustered Gene Expression Data")
-# plt.show()
-plt.savefig("heatmap.png")
+plt.savefig("genes_heatmap.png")
 plt.close(fig)
 
 
 # dendrogram
-dendrogram(leaves_list)
+den_samp_names = col_names[leaves_list]
+print(den_samp_names)
+dendrogram(linkage)
+
+plt.title("Samples")
 plt.show()
-    
