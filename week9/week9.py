@@ -55,20 +55,22 @@ gene_arr = subset_fpkm_log[leaves_list2]
 sample_arr = gene_arr.T[leaves_list]
 samp_plot = sample_arr.T
 
-# # heatmap
+# heatmap
 fig, ax = plt.subplots()
-ax = sns.heatmap(samp_plot)
+ax = sns.heatmap(samp_plot,
+                xticklabels=col_names[1:])
 ax.set_xlabel("Samples")
 ax.set_ylabel("Genes")
 plt.title("Clustered Gene Expression Data")
+plt.tight_layout()
 plt.savefig("genes_heatmap.png")
 plt.close(fig)
 
 
 # dendrogram
-den_samp_names = col_names[leaves_list]
-print(den_samp_names)
-dendrogram(linkage)
-
-plt.title("Samples")
-plt.show()
+labels = np.array(col_names[1:])[leaves_list]
+dendrogram(linkage, labels=labels)
+plt.title("Dendrogram")
+plt.tight_layout()
+plt.savefig("dendrogram.png")
+plt.close()
