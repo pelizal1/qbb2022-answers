@@ -92,7 +92,8 @@ for i in range(samp_plot.shape[0]):
     longdf = np.array(list_of_tuples, dtype=[('transcript', 'S11'), ('fpkm', float), ('sex', 'S6'), ('stage', int)])
     model = smf.ols(formula="fpkm ~ 1 + stage", data=longdf, subset=None, drop_cols=None)
     results = model.fit()
-    p_vals.append([results.params[0],results.params[1]])
+    p_vals.append(results.pvalues[0])
+
 qq_data = np.array(p_vals)
 
 sm.qqplot(qq_data, line='q')
