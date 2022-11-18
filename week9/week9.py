@@ -6,6 +6,7 @@ from scipy.cluster.hierarchy import dendrogram, linkage
 import matplotlib.pyplot as plt
 import seaborn as sns
 import statsmodels.formula.api as smf
+import statsmodels.stats.multitest as smsm
 import statsmodels.api as sm
 import pylab
 
@@ -58,24 +59,25 @@ sample_arr = gene_arr.T[leaves_list]
 samp_plot = sample_arr.T
 
 # heatmap
-fig, ax = plt.subplots()
-ax = sns.heatmap(samp_plot,
-                xticklabels=col_names[1:])
-ax.set_xlabel("Samples")
-ax.set_ylabel("Genes")
-plt.title("Clustered Gene Expression Data")
-plt.tight_layout()
-plt.savefig("genes_heatmap.png")
-plt.close(fig)
+# fig, ax = plt.subplots()
+# ax = sns.heatmap(samp_plot,
+#                 xticklabels=col_names[1:])
+# ax.set_xlabel("Samples")
+# ax.set_ylabel("Genes")
+# plt.title("Clustered Gene Expression Data")
+# plt.tight_layout()
+# plt.savefig("genes_heatmap.png")
+# plt.close(fig)
 
 
 # dendrogram
-labels = np.array(col_names[1:])[leaves_list]
-dendrogram(linkage, labels=labels)
-plt.title("Dendrogram")
-plt.tight_layout()
-plt.savefig("dendrogram.png")
-plt.close()
+# labels = np.array(col_names[1:])[leaves_list]
+# dendrogram(linkage, labels=labels)
+# plt.xticks(rotation=45)
+# plt.title("Dendrogram")
+# plt.tight_layout()
+# plt.savefig("dendrogram.png")
+# plt.close()
 
 # values for each gene, sex and time period
 sexes=[]
@@ -84,20 +86,67 @@ for sample in col_names[1:]:
     sexes.append(sample.split('_')[0])
     stages.append(sample.split('_')[1])
 
-p_vals = []
-for i in range(samp_plot.shape[0]):
+p_vals_stage = []
+beta_coefs_stage = []
+p_vals_sex = []
+beta_coefs_sex = []
+for i in range(subset_fpkm_log.shape[0]):
     list_of_tuples = []
     for j in range(len(col_names[1:])):
-        list_of_tuples.append((transcript_names[i],samp_plot[i,j], sexes[j], stages[j]))
+        list_of_tuples.append((transcript_names[i],subset_fpkm_log[i,j], sexes[j], stages[j]))
     longdf = np.array(list_of_tuples, dtype=[('transcript', 'S11'), ('fpkm', float), ('sex', 'S6'), ('stage', int)])
-    model = smf.ols(formula="fpkm ~ 1 + stage", data=longdf, subset=None, drop_cols=None)
-    results = model.fit()
-    p_vals.append(results.pvalues[0])
+    #stage
+    model_stage = smf.ols(formula="fpkm ~ 1 + stage", data=longdf, subset=None, drop_cols=None)
+    results_stage = model_stage.fit()
+    p_vals_stage.append(results_stage.pvalues['stage'])
+    beta_coefs_stage.append(results_stage.params['stage'])
+    #sex
+    model_sex = smf.ols(formula="fpkm ~ 1 + sex + stage", data=longdf, subset=None, drop_cols=None)
+    results_sex = model_sex.fit()
+    p_vals_sex.append(results_sex.pvalues['stage'])
+    beta_coefs_sex.append(results_sex.params['stage'])
 
-qq_data = np.array(p_vals)
+#Stages QQ plot
+# qq_data = np.array(p_vals_stage)
+#
+# sm.qqplot(qq_data, dist=scipy.stats.uniform, line='q')
+# plt.title("QQ Plot with stage as a covariate")
+# plt.tight_layout()
+# plt.savefig("qqplot.png")
+# plt.close(fig)
 
-sm.qqplot(qq_data, line='q')
-plt.title("QQ Plot")
+#multiple tests - stages
+bools_stage = smsm.multipletests(p_vals_stage, alpha=0.1, method="fdr_bh")[0]
+diff_gene_stage = t_name_subset[bools_stage]
+
+# np.savetxt('diff_gene_stage.txt', diff_gene_stage, fmt='%s', delimiter="\n")
+
+#multiple tests - sex
+bools_sex = smsm.multipletests(p_vals_sex, alpha=0.1, method="fdr_bh")[0]
+diff_gene_sex = t_name_subset[bools_sex]
+
+# np.savetxt('diff_gene_sex.txt', diff_gene_sex, fmt='%s', delimiter="\n")
+
+# compare lists of genes with sex or stage as a covariate
+overlap_gene = list(set(diff_gene_stage) & set(diff_gene_sex))
+# print((len(overlap_gene)/len(diff_gene_stage))*100)
+
+# volcano plot = scatter plot
+pvals_sex_neglog10 = -np.log10(p_vals_sex)
+
+colors = []
+for bool in bools_sex:
+    if bool==True:
+        colors.append("Orange")
+    else:
+        colors.append("Black")
+fig, ax = plt.subplots()
+ax.scatter(beta_coefs_sex, pvals_sex_neglog10, c=colors)
+ax.set_xlabel("Beta Coefficients")
+ax.set_ylabel("-log10(p-values)")
+plt.title("Volcano Plot of Differeintially Expressed Genes with Sex as a Covariate")
 plt.tight_layout()
-plt.savefig("qqplot.png")
+plt.savefig("volcano.png")
 plt.close(fig)
+
+
