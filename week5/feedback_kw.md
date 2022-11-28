@@ -8,21 +8,16 @@
 
 3. scale bedgraph files (4 different datasets, 0.25 each)
 
-* assuming this in the .sh script that isn't uploaded
-
 4. crop bedgraph files (4 different datasets, 0.25 each)
-
-* assuming this in the .sh script that isn't uploaded
 
 5. python script for plotting
 
-* great use of `glob` to read in the filenames
-* fantastic script overall
 
 6. 4 panel plot of read pile ups
-
-* Barplot? Would recommend using `plot` for the line and then `fill_between` to fill in the plotting area.
 * Nice use of the tick marks and tick mark labels so that we can see the different scales. Most would prefer using the same scale/max value for all four subplots.
+* I know from the code you used `plot()` for all of them, but from the figure itself, it looks like you only used `plot` for one of them? It's the only one with a line/curve. The rest look like really thin bars or a histogram
+* you can use the [fill_between matplotlib function](https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.fill_between.html) to fill in the curves if you want
+
 
 7. motif finding sort intersected sox2 replicate narrow peak by 5th columm, keep first 300 lines, awk command for reformatting (0.33 each)
 
@@ -30,6 +25,8 @@
 
 9. download and unpack motif database
 
+* code for having done this? I see that you have based off of the tomtom command; just please record such things
+
 10. match profiles from tomtom for klf4 and sox2 (0.5 for commands, 0.5 for result)
 
-Very good overall! Please add `Q1_STEP5.sh` for the scaling and cropping steps, but you have full credit since the files seem to be made prior to the python script being run
+Great work overall!
