@@ -88,7 +88,7 @@ def run_sim(start_al_freq, pop_size, n_iters):
 
 # 5 - simulation under different allele frequencies with same population size
 pop_size = 200
-al_freq = 0.0009746
+al_freq = 0.025
 n_iters = 100
 fix_times = []
 al_freqs = []
@@ -98,7 +98,8 @@ for i in range(10):
     # run_sim and save to fix_times list
     fix_time = run_sim(al_freq, pop_size, n_iters)
     fix_times.append(fix_time)
-    al_freq = al_freq*2
+    al_freq = round(al_freq + 0.1, 3)
+    
 
 fig, ax = plt.subplots()
 ax.boxplot(fix_times)
@@ -106,6 +107,7 @@ ax.set_xlabel(f"Starting Allele Frequency\nPopulation Size: {pop_size}\nRuns for
 ax.set_ylabel("Fixation Time")
 ax.set_title("Effect of allele frequency on fixation time")
 ax.set_xticklabels(al_freqs)
+plt.xticks(rotation=45)
 plt.tight_layout()
 plt.savefig("5.png")
 plt.close()
