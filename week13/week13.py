@@ -88,26 +88,24 @@ def run_sim(start_al_freq, pop_size, n_iters):
 
 # 5 - simulation under different allele frequencies with same population size
 pop_size = 200
-al_frq = 0.998
-n_iters=100
+al_freq = 0.0009746
+n_iters = 100
 fix_times = []
 al_freqs = []
 for i in range(10):
-    # run the simulation using six different population sizes
+    # run the simulation using ten different allele frequencies
     al_freqs.append(al_freq)
-    # NEED TO USE run_sim and save the iterations for the variability!!!
-    fix_time = len(WF_sim(start_al_frq, pop_size))
+    # run_sim and save to fix_times list
+    fix_time = run_sim(al_freq, pop_size, n_iters)
     fix_times.append(fix_time)
-    al_freq = al_freq/2
+    al_freq = al_freq*2
 
-# fig, ax = plt.subplots()
-# ax.plot(pop_sizes, fix_times)
-# ax.set_xlabel(f"Starting Allele Frequency\nPopulation Size: {pop_size}\nRuns for each freq.: {n_iters}")
-# ax.set_ylabel("Fixation Time")
-# ax.set_title("Effect of allele frequency on fixation time")
-# ax.set_xscale("log")
-# ax.set_xticks(pop_sizes)
-# ax.set_xticklabels(pop_sizes)
-# plt.tight_layout()
-# plt.savefig("5.png")
-# plt.close()
+fig, ax = plt.subplots()
+ax.boxplot(fix_times)
+ax.set_xlabel(f"Starting Allele Frequency\nPopulation Size: {pop_size}\nRuns for each freq.: {n_iters}")
+ax.set_ylabel("Fixation Time")
+ax.set_title("Effect of allele frequency on fixation time")
+ax.set_xticklabels(al_freqs)
+plt.tight_layout()
+plt.savefig("5.png")
+plt.close()
