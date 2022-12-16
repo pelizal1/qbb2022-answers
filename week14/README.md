@@ -53,9 +53,25 @@ grep ">" ~/qbb2022-answers/week14/bam_files/bins_dir/*.fa | wc -l
 (metabat2) [~/qbb2022-answers/week14/bam_files/bins_dir $]grep '>' bin.6.fa | wc -l
 
 Q3C.
-There is variability in the sizes of the bins, but prokaryotic genomes are small, so 
-it makes sense that the sizes of the bins are small compared to the
-number of contigs in the assembly.
+There is variability in the sizes of the bins, but prokaryotic genomes are on the scale of Mbp
+and the number of bp in each bin is on that scale.
+tr -s '\n' '' = to remove new line characters
+
+count the number of bp in the assembly
+wc -c assembly.fasta
+approx. num bp in assembly: 38856945
+
+to count the number of characters in each bin
+wc -c bin.6.fa 
+
+bin		approx. num bp
+bin 1:  2752195				
+bin 2:  2525551
+bin 3:  274280
+bin 4:  2356343 
+bin 5:  1683938
+bin 6:  2910800 
+
 
 Q3D.
 You could estimate how complete each bin is by seeing how much of the sequences in each bin
