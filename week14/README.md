@@ -75,8 +75,8 @@ bin 6:  2910800
 
 Q3D.
 You could estimate how complete each bin is by seeing how much of the sequences in each bin
-align with the reference genome of the species.  Sequences from the bin that do not align are conatmination
-while how complete the bin is can be determined by figuring out the coverage of the reference genome.
+align with the reference genomes in a taxonomic group.  Sequences from the bin that do not align are contamination
+while how complete the bin is can be determined by figuring out the coverage of the reference genomes.
 
 Q4A.
 bin 1: NODE_12_length_269228_cov_106.168966 root;cellular organisms;Bacteria;Terrabacteria group;Firmicutes;Bacilli;Bacillales;Staphylococcaceae;Staphylococcus;Staphylococcus aureus;Staphylococcus aureus subsp. aureus;Staphylococcus aureus subsp. aureus ST72;Staphylococcus aureus subsp. aureus CN1
@@ -90,4 +90,4 @@ bin 6: NODE_1_length_1447137_cov_2268.097092 root;cellular organisms;Bacteria;Te
 
 
 Q4B.
-You could align the contigs in the bin to reference genomes of varoius species to determine the species for each bin and then look at the number of contigs for each bin to give you a rough estimate of the abudance of the species.  The abudance would also depend on the size of the genome.
+You could align the contigs in the bin to reference genomes of varoius species to determine the species in each bin and then look at the number of contigs for each bin to give you a rough estimate of the abudance of the species.  The abudance would also depend on the size of the genome.
