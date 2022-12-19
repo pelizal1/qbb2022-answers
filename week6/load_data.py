@@ -57,28 +57,8 @@ def main():
     print(length)
     d1_full = numpy.zeros((length, length))
     d2_full = numpy.zeros((length, length))
-    
-    # loop through columns
-    for i in range(start_bin, end_bin):
-        # loop through rows
-        for j in range(start_bin, end_bin):
-            # indeces for score
-            index1 = numpy.where(
-                (d1['F1'] == i+1) &
-                (d1['F2'] == j+1)
-            )
-            index2 = numpy.where(
-                (d2['F1'] == i+1) &
-                (d2['F2'] == j+1)
-            )
-
-            try:
-                d1_full[i-start_bin][j-start_bin] = d1['score'][index1[0][0]]
-                d2_full[i-start_bin][j-start_bin] = d2['score'][index2[0][0]]
-            except:
-                continue
-    print(d1_full)
-    print(d2_full)
+    d1_full[d1['F1'], d1['F2']] = d1['score']
+    d1_full[d1['F2'], d1['F1']] = d1['score']
     
     fig, ax = plt.subplots()
     ax = sns.heatmap(d1_full,
@@ -91,6 +71,7 @@ def main():
     # print(smooth_matrix(s))
     # print(d1)
     # print(smooth_matrix(d1))
+    return
     
 def smooth_matrix(mat):
     N = mat.shape[0]
