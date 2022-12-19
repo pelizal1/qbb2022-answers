@@ -79,15 +79,32 @@ align with the reference genomes in a taxonomic group.  Sequences from the bin t
 while how complete the bin is can be determined by figuring out the coverage of the reference genomes.
 
 Q4A.
-bin 1: NODE_12_length_269228_cov_106.168966 root;cellular organisms;Bacteria;Terrabacteria group;Firmicutes;Bacilli;Bacillales;Staphylococcaceae;Staphylococcus;Staphylococcus aureus;Staphylococcus aureus subsp. aureus;Staphylococcus aureus subsp. aureus ST72;Staphylococcus aureus subsp. aureus CN1
+bin 1: 
+55 Bacillales
 
-bin 2: NODE_4_length_455101_cov_112.371015 root;cellular organisms;Bacteria;Terrabacteria group;Actinobacteria;Actinobacteria;Propionibacteriales;Propionibacteriaceae;Cutibacterium;Cutibacterium avidum;Cutibacterium avidum 44067
+bin 2: 
+13 Propionibacteriales
 
-bin 3: NODE_219_length_36425_cov_40.833462 root;cellular organisms;Bacteria;Terrabacteria group;Firmicutes;Bacilli;Bacillales;Staphylococcaceae;Staphylococcus;Staphylococcus epidermidis;Staphylococcus epidermidis ATCC 12228
-bin 4: NODE_20_length_181746_cov_381.691663 root;cellular organisms;Bacteria;Terrabacteria group;Firmicutes;Bacilli;Bacillales;Staphylococcaceae;Staphylococcus;Staphylococcus epidermidis;Staphylococcus epidermidis RP62A
-bin 5: NODE_3_length_498518_cov_181.760000 root;cellular organisms;Bacteria;Terrabacteria group;Firmicutes;Tissierellia;Tissierellales;Peptoniphilaceae;Anaerococcus;Anaerococcus prevotii;Anaerococcus prevotii DSM 20548
-bin 6: NODE_1_length_1447137_cov_2268.097092 root;cellular organisms;Bacteria;Terrabacteria group;Firmicutes;Bacilli;Lactobacillales;Enterococcaceae;Enterococcus;Enterococcus faecalis;Enterococcus faecalis OG1RF
+bin 3: 
+20 Bacillales 
+1 Bacteroidia 
+1 Staphylococcus phage CNPH82 
+2 Staphylococcus phage Ipla5 
+1 Staphylococcus phage Ipla7 
+2 Staphylococcus phage PH15
+
+bin 4: 
+83 Bacillales 
+1 Staphylococcus phage CNPH82
+
+bin 5: 
+2 Clostridiales 
+1 Lactobacillales 
+5 Tissierellales
+
+bin 6: 
+6 Lactobacillales
 
 
 Q4B.
-You could align the contigs in the bin to reference genomes of varoius species to determine the species in each bin and then look at the number of contigs for each bin to give you a rough estimate of the abudance of the species.  The abudance would also depend on the size of the genome.
+You could align the contigs in the bin to reference genomes of varoius species in the taxon to determine the species in each bin and then look at the number of contigs for each bin to give you a rough estimate of the abudance of the species.  The abudance might also depend on the size of the genome.
